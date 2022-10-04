@@ -1,0 +1,145 @@
+basePath: /
+definitions:
+  main.Items:
+    properties:
+      description:
+        example: DESC TEST ITEM01
+        type: string
+      item_code:
+        example: TEST01
+        type: string
+      item_id:
+        example: 1
+        type: integer
+      order_id:
+        example: 1
+        type: integer
+      quantity:
+        example: 5
+        type: integer
+    type: object
+  main.Request:
+    properties:
+      customer_name:
+        description: OrderID      int     `json:"order_id,omitempty"`
+        example: Sigit Setiawan
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/main.Items'
+        type: array
+    type: object
+  main.Response:
+    properties:
+      customer_name:
+        example: Sigit Setiawan
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/main.Items'
+        type: array
+      order_id:
+        example: 1
+        type: integer
+      ordered_at:
+        example: "2022-10-04T10:09:55.6868076+07:00"
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Gin Swagger Example API
+  version: "2.0"
+paths:
+  /order/:id:
+    delete:
+      consumes:
+      - '*/*'
+      description: Delete Order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+        "500":
+          description: error
+          schema:
+            type: string
+      summary: Delete Order
+      tags:
+      - Orders
+    put:
+      consumes:
+      - '*/*'
+      description: Update Order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+        "500":
+          description: error
+          schema:
+            type: string
+      summary: Update Order
+      tags:
+      - Orders
+  /orders:
+    get:
+      consumes:
+      - '*/*'
+      description: Get All Order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+        "500":
+          description: error
+          schema:
+            type: string
+      summary: Get All Order
+      tags:
+      - Orders
+    post:
+      consumes:
+      - '*/*'
+      description: Create New Order
+      parameters:
+      - description: Order
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/main.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Response'
+        "500":
+          description: error
+          schema:
+            type: string
+      summary: Create New Order
+      tags:
+      - Orders
+schemes:
+- http
+swagger: "2.0"
